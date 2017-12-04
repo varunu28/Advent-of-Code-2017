@@ -3,6 +3,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -17,7 +18,7 @@ public class Day04 {
 
         for (int i=1;i<=numInputs;i++) {
             String s = br.readLine();
-            if (isValidPassPhrase(s)) {
+            if (isValidPassPhrase2(s)) {
                 count++;
             }
         }
@@ -25,11 +26,28 @@ public class Day04 {
         System.out.println(count);
     }
 
-    private static boolean isValidPassPhrase(String s) {
+    private static boolean isValidPassPhrase1(String s) {
 
         String[] arrS = s.trim().split("\\s+");
 
         Set<String>  arrSet = Arrays.stream(arrS).collect(Collectors.toSet());
+
+        return arrS.length == arrSet.size();
+    }
+
+    private static boolean isValidPassPhrase2(String s) {
+
+        String[] arrS = s.trim().split("\\s+");
+
+        Set<String> arrSet = new HashSet<>();
+
+        for (String str : arrS) {
+            char[] arr = str.toCharArray();
+            Arrays.sort(arr);
+            String sortStr = String.valueOf(arr);
+
+            arrSet.add(sortStr);
+        }
 
         return arrS.length == arrSet.size();
     }

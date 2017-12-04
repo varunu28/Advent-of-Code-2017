@@ -11,11 +11,13 @@ public class Day02 {
     public static void main(String[] args) throws Exception {
 
         List<List<Integer>> list = getInput();
-        System.out.println(findCheckSum(list));
+
+        System.out.println(findCheckSum1(list));
+        System.out.println(findCheckSum2(list));
 
     }
 
-    private static int findCheckSum(List<List<Integer>> list) {
+    private static int findCheckSum1(List<List<Integer>> list) {
 
         int sum = 0;
 
@@ -26,6 +28,25 @@ public class Day02 {
 
         return sum;
 
+    }
+
+    private static int findCheckSum2(List<List<Integer>> list) {
+
+        int sum = 0;
+
+        for (List<Integer> l : list) {
+            for (int i=0;i<l.size();i++) {
+                for (int j=0;j<l.size();j++) {
+                    if (i!=j && l.get(i) >= l.get(j)) {
+                        if(l.get(i)%l.get(j) == 0) {
+                            sum += l.get(i)/l.get(j);
+                        }
+                    }
+                }
+            }
+        }
+
+        return sum;
     }
 
     private static List<List<Integer>> getInput() throws Exception {
